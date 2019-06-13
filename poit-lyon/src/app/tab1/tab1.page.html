@@ -36,9 +36,12 @@
       </ion-card-content>
     </ion-card>
 
-    <agm-map [latitude]="lat" [longitude]="lng">
-        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-    </agm-map>
+    <div id="map" class="map"></div>
+
+    <!-- <div class="map"
+      leaflet 
+      [leafletOptions]="options">
+    </div> -->
 
     <ion-card class="" *ngFor="let poi of pois">
       <ion-card-header>

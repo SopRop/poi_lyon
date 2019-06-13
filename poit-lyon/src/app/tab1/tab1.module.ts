@@ -3,8 +3,8 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { Tab1Page } from './tab1.page';
-import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   imports: [
@@ -12,9 +12,7 @@ import { AgmCoreModule } from '@agm/core';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDw3L0Q7LAsaLsxRP90rc4OsjUB9BD_338'
-    }),
+    LeafletModule.forRoot(),
     RouterModule.forChild([{ path: '', component: Tab1Page }])
   ],
   declarations: [Tab1Page]

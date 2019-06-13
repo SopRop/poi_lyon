@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AgmCoreModule } from '@agm/core';
+import { Map, latLng, tileLayer, Layer, marker } from 'leaflet';
 
 import { CPoiInfo } from '../interfaces/info-poi';
 
@@ -16,8 +16,17 @@ export class Tab1Page implements OnInit {
   public searchForm: FormGroup;
   public pois: any = [];
   public name: string;
-  lat = 51.678418;
-  lng = 7.809007;
+  public map: Map;
+  public lat = 45.750000;
+  public lng = 4.850000;
+
+  // options = {
+  //   layers: [
+  //     tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
+  //   ],
+  //   zoom: 5,
+  //   center: latLng(46.879966, -121.726909)
+  // };
 
   constructor(public apiService: ApiService, public formBuilder: FormBuilder) {
     this.searchForm = formBuilder.group({
@@ -26,6 +35,7 @@ export class Tab1Page implements OnInit {
   }
 
   ngOnInit() {
+    this.loadmap();
   }
 
   getPoi() {
@@ -38,6 +48,18 @@ export class Tab1Page implements OnInit {
         this.pois = this.poiInfo.result;
         console.log('this.pois', this.pois);
     });
+  }
+
+  loadmap() {
+    setTimeout(() => {
+      this.map = new Map('map').setView([this.lat, this.lng], 8);
+
+      tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+         // tslint:disable-next-line
+        maxZoom: 18
+      }).addTo(this.map);
+
+    }, 50);
   }
 
   transformType(value) {

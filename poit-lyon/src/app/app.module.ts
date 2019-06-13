@@ -12,8 +12,6 @@ import { AppComponent } from './app.component';
 
 import { ApiService } from './services/api.service';
 
-import { AgmCoreModule } from '@agm/core';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,9 +22,6 @@ import { AgmCoreModule } from '@agm/core';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBfVZapud0Tf13fDHIedb_EI0bwl9WKpSQ'
-    }),
   ],
   providers: [
     StatusBar,
