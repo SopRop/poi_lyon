@@ -1,4 +1,46 @@
-.welcome-card ion-img {
-  max-height: 35vh;
-  overflow: hidden;
+// SEARCH
+
+ion-card-header {
+  padding: 8px 16px 0 16px;
+
+}
+
+.search-button {
+
+  display: flex;
+  align-items: flex-end;
+  
+  .search-icon {
+    margin: -2px;
+  }
+}
+
+
+// RESULTS
+
+p {
+  margin: 0;
+}
+
+ion-icon {
+  margin: 2px 6px 0 0;
+}
+
+.flex {
+  display: flex;
+}
+
+.margin-top-10 {
+  margin-top: 10px;
+}
+
+.margin-left-20 {
+  margin-left: 20px;
+}
+
+agm-map {
+  margin: 0 5px;
+
+  width: 100vw;
+  height: 50vh;
 }

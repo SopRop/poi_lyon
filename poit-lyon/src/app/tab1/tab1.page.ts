@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { AgmCoreModule } from '@agm/core';
+
+import { CPoiInfo } from '../interfaces/info-poi';
 
 @Component({
   selector: 'app-tab1',
@@ -7,18 +12,40 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page implements OnInit {
-  public poi = [];
-  public code_postal: number;
+  public poiInfo: CPoiInfo;
+  public searchForm: FormGroup;
+  public pois: any = [];
+  public name: string;
+  lat = 51.678418;
+  lng = 7.809007;
 
-  constructor(public apiService: ApiService) {}
+  constructor(public apiService: ApiService, public formBuilder: FormBuilder) {
+    this.searchForm = formBuilder.group({
+      code_postal: ['', Validators.required]
+    });
+  }
 
   ngOnInit() {
-    this.apiService.getPoi(69003)
-    .subscribe((data: string[]) => {
-        this.poi = data;
+  }
 
-        console.log('test', this.poi);
+  getPoi() {
+    const postalCode = this.searchForm.get('code_postal').value;
+    console.log('input', postalCode);
+    this.apiService.getPoi(postalCode).subscribe(
+      (data: CPoiInfo) => {
+        this.poiInfo = data;
+        console.log('poiInfo', this.poiInfo);
+        this.pois = this.poiInfo.result;
+        console.log('this.pois', this.pois);
     });
+  }
+
+  transformType(value) {
+    return value.split(';').join(' - ');
+  }
+
+  transformTel(value) {
+    return value.match(/.{2}/g).join(' ');
   }
 
 }

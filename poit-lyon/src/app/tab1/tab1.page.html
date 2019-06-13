@@ -8,34 +8,64 @@
 
 <ion-content>
     <ion-card class="welcome-card">
-      <ion-img src="/assets/shapes.svg"></ion-img>
       <ion-card-header>
-        <ion-card-subtitle>Get Started</ion-card-subtitle>
-        <ion-card-title>Welcome to Ionic</ion-card-title>
+        <ion-card-title>Recherche</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <p>Now that your app has been created, you'll want to start building out features and components. Check out some of the resources below for next steps.</p>
+
+        <form [formGroup]="searchForm">
+          <ion-grid>
+            <ion-row>
+                <ion-col size="10">
+                  <ion-item>
+                    <ion-label position="stacked">Code Postal</ion-label>
+                    <ion-input formControlName="code_postal" clear-input placeholder="Entrez votre recherche" type="text"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col class="search-button" size="2">
+                    <ion-chip>
+                      <ion-icon class="search-icon" (click)="getPoi(code_postal)" name="search"></ion-icon>
+                      <!-- <ion-label>Default</ion-label> -->
+                    </ion-chip>
+                </ion-col>
+
+              </ion-row>
+          </ion-grid>
+        </form>
+
       </ion-card-content>
     </ion-card>
-    <ion-list lines="none">
-      <ion-list-header>
-        <ion-label>Resources</ion-label>
-      </ion-list-header>
-      <ion-item href="https://ionicframework.com/docs/">
-        <ion-icon slot="start" color="medium" name="book"></ion-icon>
-        <ion-label>Ionic Documentation</ion-label>
-      </ion-item>
-      <ion-item href="https://ionicframework.com/docs/building/scaffolding">
-        <ion-icon slot="start" color="medium" name="build"></ion-icon>
-        <ion-label>Scaffold Out Your App</ion-label>
-      </ion-item>
-      <ion-item href="https://ionicframework.com/docs/layout/structure">
-        <ion-icon slot="start" color="medium" name="grid"></ion-icon>
-        <ion-label>Change Your App Layout</ion-label>
-      </ion-item>
-      <ion-item href="https://ionicframework.com/docs/theming/basics">
-        <ion-icon slot="start" color="medium" name="color-fill"></ion-icon>
-        <ion-label>Theme Your App</ion-label>
-      </ion-item>
-    </ion-list>
+
+    <agm-map [latitude]="lat" [longitude]="lng">
+        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    </agm-map>
+
+    <ion-card class="" *ngFor="let poi of pois">
+      <ion-card-header>
+        <ion-card-subtitle>{{ poi.properties.nom }}</ion-card-subtitle>
+        <p>{{ transformType(poi.properties.type_detail) }}</p>
+
+        <div class="margin-top-10" *ngIf="poi.properties.adresse">
+          <div class="flex">
+            <ion-icon name="pin"></ion-icon>
+            <p>{{ poi.properties.adresse }}</p>
+          </div>
+          <p class="margin-left-20">{{ poi.properties.commune }}</p>
+        </div>
+
+        <div class="flex margin-top-10" *ngIf="poi.properties.ouverture">
+          <ion-icon name="clock"></ion-icon>
+          <p>{{ poi.properties.ouverture }}</p>
+        </div>
+
+        <div class="flex margin-top-10" *ngIf="poi.properties.telephone">
+          <ion-icon name="call"></ion-icon>
+          <p>{{ transformTel(poi.properties.telephone) }}</p>
+        </div>
+      </ion-card-header>
+      <ion-card-content>
+
+      </ion-card-content>
+    </ion-card>
+
 </ion-content>
