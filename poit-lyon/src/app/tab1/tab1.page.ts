@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Map, latLng, tileLayer, Layer, marker } from 'leaflet';
+import { Map, latLng, tileLayer, Layer, Marker, marker, layerGroup } from 'leaflet';
 
 import { CPoiInfo } from '../interfaces/info-poi';
 
@@ -19,14 +19,7 @@ export class Tab1Page implements OnInit {
   public map: Map;
   public lat = 45.750000;
   public lng = 4.850000;
-
-  // options = {
-  //   layers: [
-  //     tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
-  //   ],
-  //   zoom: 5,
-  //   center: latLng(46.879966, -121.726909)
-  // };
+  public layerG: any;
 
   constructor(public apiService: ApiService, public formBuilder: FormBuilder) {
     this.searchForm = formBuilder.group({
@@ -35,31 +28,24 @@ export class Tab1Page implements OnInit {
   }
 
   ngOnInit() {
-    this.loadmap();
+
+    setTimeout(() => {
+      this.map = new Map('map').setView([this.lat, this.lng], 12);
+
+      tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+      }).addTo(this.map);
+    }, 50);
   }
 
   getPoi() {
     const postalCode = this.searchForm.get('code_postal').value;
-    console.log('input', postalCode);
     this.apiService.getPoi(postalCode).subscribe(
       (data: CPoiInfo) => {
         this.poiInfo = data;
-        console.log('poiInfo', this.poiInfo);
         this.pois = this.poiInfo.result;
-        console.log('this.pois', this.pois);
+        console.log('mark', this.pois)
     });
-  }
-
-  loadmap() {
-    setTimeout(() => {
-      this.map = new Map('map').setView([this.lat, this.lng], 8);
-
-      tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-         // tslint:disable-next-line
-        maxZoom: 18
-      }).addTo(this.map);
-
-    }, 50);
   }
 
   transformType(value) {
@@ -68,6 +54,19 @@ export class Tab1Page implements OnInit {
 
   transformTel(value) {
     return value.match(/.{2}/g).join(' ');
+  }
+
+  getCoordinates(lat, lon) {
+    console.log('coorlat', lon);
+    console.log('coorlon', lat);
+
+    if (this.layerG) { this.layerG.clearLayers(); }
+
+    this.layerG = layerGroup().addTo(this.map);
+
+    marker([lon, lat]).addTo(this.layerG);
+
+    this.map.flyTo([lon, lat], 15);
   }
 
 }

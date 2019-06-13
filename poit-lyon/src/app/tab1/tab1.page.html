@@ -1,31 +1,26 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab One
+      Les meilleurs lieux de Lyon
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-card class="welcome-card">
-      <ion-card-header>
-        <ion-card-title>Recherche</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
+    <ion-card>
+      <ion-card-content class="search-card">
 
         <form [formGroup]="searchForm">
           <ion-grid>
             <ion-row>
                 <ion-col size="10">
                   <ion-item>
-                    <ion-label position="stacked">Code Postal</ion-label>
-                    <ion-input formControlName="code_postal" clear-input placeholder="Entrez votre recherche" type="text"></ion-input>
+                    <ion-input formControlName="code_postal" clear-input placeholder="Entrez un code postal" type="text"></ion-input>
                   </ion-item>
                 </ion-col>
                 <ion-col class="search-button" size="2">
                     <ion-chip>
                       <ion-icon class="search-icon" (click)="getPoi(code_postal)" name="search"></ion-icon>
-                      <!-- <ion-label>Default</ion-label> -->
                     </ion-chip>
                 </ion-col>
 
@@ -36,14 +31,11 @@
       </ion-card-content>
     </ion-card>
 
-    <div id="map" class="map"></div>
+    <div class="container-map">
+      <div id="map" class="map"></div>
+    </div>
 
-    <!-- <div class="map"
-      leaflet 
-      [leafletOptions]="options">
-    </div> -->
-
-    <ion-card class="" *ngFor="let poi of pois">
+    <ion-card class="" *ngFor="let poi of pois" (click)="getCoordinates(poi.geometry.coordinates[0], poi.geometry.coordinates[1])">
       <ion-card-header>
         <ion-card-subtitle>{{ poi.properties.nom }}</ion-card-subtitle>
         <p>{{ transformType(poi.properties.type_detail) }}</p>

@@ -1,25 +1,31 @@
 // SEARCH
 
-ion-card-header {
-  padding: 8px 16px 0 16px;
+.search-card {
+  padding-top: 0;
 
-}
-
-.search-button {
-
-  display: flex;
-  align-items: flex-end;
+  .search-button {
   
-  .search-icon {
-    margin: -2px;
+    display: flex;
+    align-items: flex-end;
+    
+    .search-icon {
+      margin: -2px;
+    }
   }
 }
 
-// MAP
 
-.map {
-  width: 99vw;
-  height: 300px;
+// MAP
+.container-map {
+  display: flex;
+  justify-content: center;
+
+  .map {
+    width: 100vw;
+    height: 250px;
+    margin: 0 10px;
+    border-radius: 8px;
+  }
 }
 
 
