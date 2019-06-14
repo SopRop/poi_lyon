@@ -3,7 +3,7 @@
 ### Back-end
 
 - NodeJS
-- Express
+- ExpressJS
 
 ### Front-end
 
