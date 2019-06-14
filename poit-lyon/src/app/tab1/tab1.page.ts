@@ -45,7 +45,6 @@ export class Tab1Page implements OnInit {
       (data: CPoiInfo) => {
         this.poiInfo = data;
         this.pois = this.poiInfo.result;
-        console.log('mark', this.pois);
 
         if (this.pois.length < 1) {
           this.noInfo = true;

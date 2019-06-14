@@ -10,15 +10,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// get all todos
-// app.get('/api/v1/poi/features/', (req, res) => {
-//   res.status(200).send({
-//     success: 'true',
-//     message: 'poi retrieved successfully',
-//     poi: data.features
-//   })
-// });
-
 app.get('/api/v1/poi/:code_postal', cors(), (req, res) => {
     const code_postal = parseInt(req.params.code_postal, 10);
  
