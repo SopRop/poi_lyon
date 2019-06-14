@@ -35,6 +35,12 @@
       <div id="map" class="map"></div>
     </div>
 
+    <ion-card class="" *ngIf="noInfo">
+      <ion-card-header>
+        <ion-card-subtitle>Aucune donnée trouvée dans ce quartier</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+
     <ion-card class="" *ngFor="let poi of pois" (click)="getCoordinates(poi.geometry.coordinates[0], poi.geometry.coordinates[1])">
       <ion-card-header>
         <ion-card-subtitle>{{ poi.properties.nom }}</ion-card-subtitle>

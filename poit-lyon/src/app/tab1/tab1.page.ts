@@ -20,6 +20,7 @@ export class Tab1Page implements OnInit {
   public lat = 45.750000;
   public lng = 4.850000;
   public layerG: any;
+  public noInfo = false;
 
   constructor(public apiService: ApiService, public formBuilder: FormBuilder) {
     this.searchForm = formBuilder.group({
@@ -28,7 +29,6 @@ export class Tab1Page implements OnInit {
   }
 
   ngOnInit() {
-
     setTimeout(() => {
       this.map = new Map('map').setView([this.lat, this.lng], 12);
 
@@ -39,12 +39,17 @@ export class Tab1Page implements OnInit {
   }
 
   getPoi() {
+    this.noInfo = false;
     const postalCode = this.searchForm.get('code_postal').value;
     this.apiService.getPoi(postalCode).subscribe(
       (data: CPoiInfo) => {
         this.poiInfo = data;
         this.pois = this.poiInfo.result;
-        console.log('mark', this.pois)
+        console.log('mark', this.pois);
+
+        if (this.pois.length < 1) {
+          this.noInfo = true;
+        }
     });
   }
 
@@ -57,16 +62,10 @@ export class Tab1Page implements OnInit {
   }
 
   getCoordinates(lat, lon) {
-    console.log('coorlat', lon);
-    console.log('coorlon', lat);
-
     if (this.layerG) { this.layerG.clearLayers(); }
 
     this.layerG = layerGroup().addTo(this.map);
-
     marker([lon, lat]).addTo(this.layerG);
-
     this.map.flyTo([lon, lat], 15);
   }
-
 }

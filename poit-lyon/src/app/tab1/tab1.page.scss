@@ -9,9 +9,14 @@
     align-items: flex-end;
     
     .search-icon {
+      color: white;
       margin: -2px;
     }
   }
+}
+
+ion-chip {
+  background: #4a0073;
 }
 
 
