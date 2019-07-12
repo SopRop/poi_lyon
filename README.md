@@ -1,41 +1,52 @@
-# Sujet de l'épreuve d'évaluation "développement mobile et hybride"
+# POIT Lyon
 
+Check and locate some of Lyon's points of interest.  
+Data : [Points d'intérêt touristiques de la Métropole de Lyon](https://data.beta.grandlyon.com/fr/accueil)
 
-## Durée : 5 jours
+## Back-end
 
+- NodeJS
+- ExpressJS
 
-## Contexte 
+Install:
+```
+cd back
+npm install
+```
 
-Cette épreuve vise à évaluer votre capacité à développer un PoC (Proof Of Concept) dans le cadre d'un projet d'application mobile. S'agissant d'une validation de compétences globale et non d'une évaluation sur une technologie en particulier, le choix de l'environnement de développement et des technologies associées reste à votre libre appréciation (hybride ou natif).
-Outre son objectif d'évaluation, cette épreuve a vocation à venir enrichir votre portfolio personnel.
+Start:
+```
+npm start
+```
 
-## Durée de l'épreuve
-Le travail finalisé devra être rendu avant vendredi 17h00, l'horodatage du dernier ***push*** faisant foi.
+To add routes, follow example:  
+> app.get('/api/v1/poi/:code_postal'  
 
-## Sujet
-### Aspect fonctionnel
-![Open Data Grand Lyon](https://data.grandlyon.com//wp-content/themes/AUSY-SMARTDATA/images/logo-smart-data-grand-lyon.png)
+(Install and use Postman to check if the paths are correct.)
+  
 
-L'application a pour objectif d'offrir, sur terminal mobile, une interface simple, intuitive et utile aux données "**[Points d'intérêt touristiques de la Métropole de Lyon](https://data.grandlyon.com/culture/points-dintfrft-touristiques-de-la-mftropole-de-lyon/)**", mises à disposition par le portail Open Data de la Métropole de Lyon.
-Il est possible de proposer également une interface web en mode "desktop" (si vous avez le temps, c'est un plus mais pas une obligation).
+## Front-end
 
+- Ionic 4
+- Cordova
+- Angular 7
 
-### Aspect technique
-Votre application doit impérativement présenter les caractéristiques suivantes : 
-* Backend technique sous forme d'API pour l'accès aux données (récupération, traitement et stockage des données OpenData, mise à disposition des données pour le Frontend sous forme d'API REST).
-* Frontend natif ou hybride, au choix, consommant l'API créée (pas d'accès direct aux données OpenData)
-* Fronted devant prévoir au mieux la possibilité d'utiliser le service en mode "déconnecté" (en cas d'absence ou de mauvaise qualité de la connexion)
+Install:
+```
+cd poit-lyon
+npm install -g ionic cordova
+npm install
+```
 
-Vous veillerez à renseigner les fichiers suivants :
-* ***STACK.md*** : vous indiquerez l'ensemble des technologies utilisées dans ce projet
-* ***USAGE.md*** : vous indiquerez toute information que vous jugerez utiles sur le plan technique visant à permettre l'intégration de nouveaux développeurs sur ce projet
+Start:
+```
+ionic serve
+```
 
-## Critères d'évaluation
-* qualité générale de la proposition
-* pertinence des technologies choisies
-* méthode (le nombre et la pertinence des *commits*, *branches*,... git sera prise en compte)
-* respect de la thématique et pertinence des propositions fonctionnelles
-* qualité de l'interface utilisateur
+Manage the routes in the Services directory.  
+You will need to add interfaces if you add routes, check Interfaces directory.
 
-## Fin d'épreuve anticipée
-En cas de rendu des travaux avant le terme du délai imparti, vous mettrez à profit le temps restant à la préparation de votre dossier individuel de soutenance.
+To geotag and add markers, the map Leaflet was used.  
+Check [documentation](https://leafletjs.com/reference-1.5.0.html) to add options.
+
+![alt text](https://i.ibb.co/Msc9ryz/cap.jpg "Capture application")
